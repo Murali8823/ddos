@@ -1,0 +1,58 @@
+{
+  "network": {
+    "lab_network_cidr": "192.168.1.0/24",
+    "c2_server_port": 8080,
+    "websocket_port": 8081,
+    "allowed_networks": [
+      "192.168.0.0/16",
+      "10.0.0.0/8",
+      "172.16.0.0/12"
+    ],
+    "blocked_networks": [
+      "127.0.0.0/8",
+      "169.254.0.0/16",
+      "224.0.0.0/4"
+    ]
+  },
+  "safety": {
+    "max_cpu_usage": 80.0,
+    "max_memory_usage": 80.0,
+    "max_network_usage": 80.0,
+    "max_requests_per_second_per_bot": 100,
+    "max_total_requests_per_second": 2800,
+    "max_attack_duration": 300,
+    "emergency_stop_cpu": 95.0,
+    "emergency_stop_memory": 95.0,
+    "max_bots": 28,
+    "connection_timeout": 30,
+    "heartbeat_interval": 10,
+    "heartbeat_timeout": 30
+  },
+  "database": {
+    "database_url": "sqlite:///ddos_lab.db",
+    "log_retention_days": 30,
+    "session_retention_days": 90
+  },
+  "c2_server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "websocket_port": 8081,
+    "dashboard_enabled": true,
+    "dashboard_auth": false,
+    "dashboard_username": "admin",
+    "dashboard_password": "admin",
+    "log_level": "INFO",
+    "log_file": "c2_server.log"
+  },
+  "bot_client": {
+    "c2_server_host": null,
+    "c2_server_port": 8081,
+    "reconnect_interval": 5,
+    "max_reconnect_attempts": 10,
+    "heartbeat_interval": 10,
+    "bot_id": null,
+    "hostname": null,
+    "log_level": "INFO",
+    "log_file": "bot_client.log"
+  }
+}
