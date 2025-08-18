@@ -345,13 +345,3 @@ By using this software, you agree to use it responsibly and ethically for educat
 - 🔄 **Updates**: Regular improvements and enhancements
 
 ---
-
-<div align="center">
-
-**⚠️ Remember: Use this tool responsibly and only in authorized lab environments! ⚠️**
-
-Made with ❤️ for cybersecurity education
-
-[Report Bug](https://github.com/Murali8823/ddos/issues) • [Request Feature](https://github.com/Murali8823/ddos/issues) • [Documentation](deployment/)
-
-</div>
