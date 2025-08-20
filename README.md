@@ -42,8 +42,8 @@ The DDoS Simulation Lab is a comprehensive educational platform that simulates r
 
 ## 🚀 Quick Start - Docker Deployment (Recommended)
 
-### 🐳 **One-Click Setup for Windows**
-**The easiest way to get started - everything pre-configured!**
+### 🐳 **Option 1: Single System Deployment**
+**Perfect for learning - everything on one machine!**
 
 ```cmd
 # 1. Clone the repository
@@ -73,11 +73,33 @@ docker-scripts\monitor.bat live   # Live dashboard
 docker-scripts\cleanup.bat        # Remove all containers
 ```
 
-### 🎯 **Access Your Lab**
-Once deployed, access these URLs:
+**Access Your Lab:**
 - **🌐 C2 Dashboard**: http://localhost:8080
 - **🎯 Target Server**: http://localhost:8090
 - **📊 Real-time Monitoring**: Built into dashboard
+
+### 🌐 **Option 2: Distributed Deployment (Advanced)**
+**Deploy across 30 physical systems for maximum realism!**
+
+**On C2 Server System:**
+```bash
+./docker-scripts/deploy-c2.sh
+```
+
+**On Each of 28 Bot Systems:**
+```bash
+./docker-scripts/deploy-bot.sh 192.168.1.100
+```
+
+**On Target System:**
+```bash
+./docker-scripts/deploy-target.sh
+```
+
+**Access Your Distributed Lab:**
+- **🌐 C2 Dashboard**: http://192.168.1.100:8080
+- **🎯 Target Server**: http://192.168.1.200:80
+- **📊 Real Network Traffic**: Between actual systems
 
 ### ✅ **Docker Benefits**
 - 🎯 **Zero Configuration**: Everything pre-configured and ready
@@ -86,6 +108,7 @@ Once deployed, access these URLs:
 - 🧹 **Clean Removal**: Remove everything instantly
 - 🖥️ **Windows Optimized**: Perfect for Windows development
 - 📦 **No Dependencies**: No need to install Python, databases, etc.
+- 🌐 **Flexible Deployment**: Single system OR distributed across 30 machines
 
 ### 🖥️ **Alternative: Manual Installation**
 **For advanced users who want full control**
@@ -99,7 +122,9 @@ python -m c2_server.main
 python -m bot_client.main
 ```
 
-📚 **See [Docker Deployment Guide](deployment/08_docker_deployment.md) for detailed instructions**
+### 📚 **Docker Deployment Guides**
+- 🐳 [Single System Docker Guide](deployment/08_docker_deployment.md) - All containers on one machine
+- 🌐 [Distributed Docker Guide](deployment/09_distributed_docker_deployment.md) - 30 physical systems
 
 ## 🏗️ Architecture
 
@@ -153,8 +178,8 @@ graph TB
 ## 🎮 Deployment Options
 
 ### 🐳 **Option 1: Docker Deployment (Recommended)**
-**Perfect for Windows users - everything containerized and isolated**
 
+#### **Single System (Learning & Development)**
 ```cmd
 # Quick interactive setup
 docker-scripts\quick-start.bat
@@ -165,7 +190,21 @@ docker-scripts\run-basic.bat      # Deploy 3-bot lab
 docker-scripts\run-scaled.bat     # Deploy 28-bot army
 ```
 
-**📚 Complete Guide**: [Docker Deployment Guide](deployment/08_docker_deployment.md)
+#### **Distributed Systems (Production Simulation)**
+```bash
+# On C2 server (192.168.1.100)
+./docker-scripts/deploy-c2.sh
+
+# On each of 28 bot systems (192.168.1.101-128)
+./docker-scripts/deploy-bot.sh 192.168.1.100
+
+# On target system (192.168.1.200)
+./docker-scripts/deploy-target.sh
+```
+
+**📚 Complete Guides**: 
+- [Single System Docker Guide](deployment/08_docker_deployment.md)
+- [Distributed Docker Guide](deployment/09_distributed_docker_deployment.md)
 
 ### 🖥️ **Option 2: Manual Deployment (Advanced)**
 **For users who want full control over the environment**
@@ -423,7 +462,8 @@ By using this software, you agree to use it responsibly and ethically for educat
 
 ### Documentation
 
-- 🐳 [Docker Deployment Guide](deployment/08_docker_deployment.md) **(Recommended)**
+- 🐳 [Single System Docker Guide](deployment/08_docker_deployment.md) **(Recommended for Learning)**
+- 🌐 [Distributed Docker Guide](deployment/09_distributed_docker_deployment.md) **(Recommended for Production)**
 - 📋 [Complete Manual Deployment Guide](deployment/)
 - 🎬 [How It Works - Animated Guide](HOW_IT_WORKS.md)
 - 🔧 [Technology Stack Details](TECH_STACK.md)
