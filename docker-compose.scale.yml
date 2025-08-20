@@ -1,0 +1,64 @@
+# 🚀 Docker Compose for Scaling Bot Army
+version: '3.8'
+
+services:
+  # 🏢 C2 Command & Control Server
+  c2-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.c2
+    container_name: ddos-c2-server
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ddos-data:/app/data
+    environment:
+      - PYTHONPATH=/app
+      - DATABASE_PATH=/app/data/ddos_lab.db
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 🤖 Scalable Bot Service
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    environment:
+      - C2_SERVER_HOST=c2-server
+      - C2_SERVER_PORT=8081
+      - PYTHONPATH=/app
+    depends_on:
+      c2-server:
+        condition: service_healthy
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+    deploy:
+      replicas: 10  # Start with 10 bots, scale as needed
+
+  # 🎯 Target Server
+  target-server:
+    image: nginx:alpine
+    ports:
+      - "8090:80"
+    volumes:
+      - ./target-content:/usr/share/nginx/html:ro
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+
+networks:
+  ddos-lab-network:
+    driver: bridge
+
+volumes:
+  ddos-data:
+    driver: local

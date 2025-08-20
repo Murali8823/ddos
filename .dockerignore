@@ -1,0 +1,37 @@
+# 🐳 Docker ignore file
+.git
+.gitignore
+README.md
+HOW_IT_WORKS.md
+TECH_STACK.md
+PROJECT_SUMMARY.md
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE
+
+# Development files
+.vscode/
+.idea/
+*.pyc
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files (don't copy into containers)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Data directories
+data/
+logs/
+
+# Deployment scripts
+deployment/
+*.bat
+*.sh

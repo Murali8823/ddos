@@ -38,6 +38,41 @@ The DDoS Simulation Lab is a comprehensive educational platform that simulates r
 - ⚡ **High Performance**: Capable of generating significant attack traffic
 - 🔧 **Easy Deployment**: Automated setup and configuration scripts
 
+## 🚀 Quick Start Options
+
+### 🐳 Docker Deployment (Recommended)
+**Perfect for Windows users - One-click deployment!**
+
+```cmd
+# Clone the repository
+git clone https://github.com/Murali8823/ddos.git
+cd ddos
+
+# Quick start with interactive menu
+docker-scripts\quick-start.bat
+
+# Or direct deployment
+docker-scripts\build.bat          # Build images
+docker-scripts\run-basic.bat      # Start 3-bot lab
+docker-scripts\run-scaled.bat     # Start 28-bot army
+```
+
+**✅ Docker Benefits:**
+- 🎯 **Zero Configuration**: Everything pre-configured
+- 🔒 **Isolated Environment**: Safe container deployment
+- ⚖️ **Easy Scaling**: 3 to 100+ bots with one command
+- 🧹 **Clean Removal**: Remove everything instantly
+
+### 🖥️ Manual Installation
+**For advanced users who want full control**
+
+```bash
+# Traditional setup (see deployment guides)
+python -m pip install -r requirements.txt
+python -m c2_server.main
+python -m bot_client.main
+```
+
 ## 🏗️ Architecture
 
 ```mermaid
@@ -101,7 +136,15 @@ graph TB
    nano config.json
    ```
 
-4. **Follow Deployment Guides**
+4. **Choose Your Deployment Method**
+   
+   **🐳 Docker Deployment (Recommended for Windows)**
+   - 📋 [Docker Deployment Guide](deployment/08_docker_deployment.md)
+   - 🚀 One-command setup with `docker-scripts\quick-start.bat`
+   - ⚖️ Easy scaling from 3 to 100+ bots
+   - 🧹 Clean removal with `docker-scripts\cleanup.bat`
+   
+   **🖥️ Manual Deployment (Advanced Users)**
    - 📋 [Windows Setup](deployment/01_windows_setup.md)
    - 🖥️ [C2 Server Setup](deployment/02_c2_server_setup.md)
    - 🤖 [Bot Deployment](deployment/03_bot_deployment.md)

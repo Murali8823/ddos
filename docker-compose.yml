@@ -1,0 +1,105 @@
+# 🐳 Docker Compose for DDoS Simulation Lab
+version: '3.8'
+
+services:
+  # 🏢 C2 Command & Control Server
+  c2-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.c2
+    container_name: ddos-c2-server
+    ports:
+      - "8080:8080"  # Web interface
+      - "8081:8081"  # WebSocket for bots
+    volumes:
+      - ./data:/app/data  # Persist SQLite database
+    environment:
+      - PYTHONPATH=/app
+      - DATABASE_PATH=/app/data/ddos_lab.db
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # 🤖 Bot Army (Scale as needed)
+  bot-001:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: ddos-bot-001
+    environment:
+      - BOT_ID=bot-001
+      - C2_SERVER_HOST=c2-server
+      - C2_SERVER_PORT=8081
+      - BOT_NAME=docker-bot-001
+      - PYTHONPATH=/app
+    depends_on:
+      c2-server:
+        condition: service_healthy
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+
+  bot-002:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: ddos-bot-002
+    environment:
+      - BOT_ID=bot-002
+      - C2_SERVER_HOST=c2-server
+      - C2_SERVER_PORT=8081
+      - BOT_NAME=docker-bot-002
+      - PYTHONPATH=/app
+    depends_on:
+      c2-server:
+        condition: service_healthy
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+
+  bot-003:
+    build:
+      context: .
+      dockerfile: Dockerfile.bot
+    container_name: ddos-bot-003
+    environment:
+      - BOT_ID=bot-003
+      - C2_SERVER_HOST=c2-server
+      - C2_SERVER_PORT=8081
+      - BOT_NAME=docker-bot-003
+      - PYTHONPATH=/app
+    depends_on:
+      c2-server:
+        condition: service_healthy
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+
+  # 🎯 Target Server (Optional - for testing)
+  target-server:
+    image: nginx:alpine
+    container_name: ddos-target-server
+    ports:
+      - "8090:80"
+    volumes:
+      - ./target-content:/usr/share/nginx/html:ro
+    networks:
+      - ddos-lab-network
+    restart: unless-stopped
+
+networks:
+  ddos-lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  ddos-data:
+    driver: local
