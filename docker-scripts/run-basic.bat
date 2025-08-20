@@ -1,5 +1,5 @@
 @echo off
-REM 🎮 Run Basic DDoS Lab Setup (3 bots) for Windows
+REM 🎮 Run Basic DDoS Lab Setup (3 bots) - Windows
 
 echo 🚀 Starting DDoS Simulation Lab - Basic Setup...
 echo 📊 This will start:

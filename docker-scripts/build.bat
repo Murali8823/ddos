@@ -1,8 +1,7 @@
 @echo off
-REM 🐳 Build Docker Images Script for Windows
+REM 🐳 Build Docker Images Script (Windows)
 
 echo 🚀 Building DDoS Simulation Lab Docker Images...
-echo.
 
 REM Build C2 Server
 echo 🏢 Building C2 Server image...
@@ -12,7 +11,6 @@ REM Build Bot Client
 echo 🤖 Building Bot Client image...
 docker build -f Dockerfile.bot -t ddos-lab/bot-client:latest .
 
-echo.
 echo ✅ Docker images built successfully!
 echo.
 echo 📋 Available images:
